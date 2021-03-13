@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">projetMTG</string>
+    <string name="CardName">Name</string>
+    <string name="CardType">Type</string>
+    <string name="CardColor">Color</string>
+    <string name="CardColorIdentity">Color Identity</string>
+
+    <!--    CHECKBOX COLOR IDENTITY     -->
+
+    <string name="CIW">W</string>
+    <string name="CIU">U</string>
+    <string name="CIB">B</string>
+    <string name="CIR">R</string>
+    <string name="CIG">G</string>
+    <string name="CIColorless">Colorless</string>
+
+    <!--    CHECKBOX COLOR      -->
+
+    <string name="CW">W</string>
+    <string name="CU">U</string>
+    <string name="CB">B</string>
+    <string name="CR">R</string>
+    <string name="CG">G</string>
+    <string name="CColorless">Colorless</string>
+    <string name="search_button">Search !</string>
+</resources>
