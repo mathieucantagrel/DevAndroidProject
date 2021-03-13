@@ -57,7 +57,8 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
             Log.i("postURL", String.valueOf(jsonArray.length()));
 
             for (int i=0; i<jsonArray.length(); i++){
-                adapter.add(jsonArray.getJSONObject(i).getString("name"));
+                String name = jsonArray.getJSONObject(i).getString("name");
+                String manaCost = jsonArray.getJSONObject(i).getString("manaCost");
             }
 
             adapter.notifyDataSetChanged();
