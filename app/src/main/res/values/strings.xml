@@ -12,7 +12,6 @@
     <string name="CIB">B</string>
     <string name="CIR">R</string>
     <string name="CIG">G</string>
-    <string name="CIColorless">Colorless</string>
 
     <!--    CHECKBOX COLOR      -->
 
@@ -21,6 +20,14 @@
     <string name="CB">B</string>
     <string name="CR">R</string>
     <string name="CG">G</string>
-    <string name="CColorless">Colorless</string>
     <string name="search_button">Search !</string>
+    <string name="Name">TextView</string>
+    <string name="Manacost">TextView</string>
+    <string name="Types">TextView</string>
+    <string name="Cmc">TextView</string>
+    <string name="Text">TextView</string>
+    <string name="ColorIdentity">TextView</string>
+    <string name="Rarity">TextView</string>
+    <string name="PowerToughness">TextView</string>
+    <string name="textview">TextView</string>
 </resources>

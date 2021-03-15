@@ -55,10 +55,9 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
             JSONArray jsonArray = jsonObject.getJSONArray("cards");
 
             Log.i("postURL", String.valueOf(jsonArray.length()));
-
+            
             for (int i=0; i<jsonArray.length(); i++){
-                String name = jsonArray.getJSONObject(i).getString("name");
-                String manaCost = jsonArray.getJSONObject(i).getString("manaCost");
+                addCard(jsonArray.getJSONObject(i));
             }
 
             adapter.notifyDataSetChanged();
@@ -82,5 +81,55 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
         } catch (IOException e) {
             return "";
         }
+    }
+
+    private void addCard(JSONObject current) throws JSONException {
+        String name = current.getString("name");
+
+        if (!adapter.checkDoublon(name))
+            return;
+
+        String manaCost = current.has("manaCost")?current.getString("manaCost"):"";
+        int cmc = current.getInt("cmc");
+
+        String[] colors = current.has("colors")?createTab(current.getJSONArray("colors")):null;
+
+        String[] colorIdentity = current.has("colorIdentity")?createTab(current.getJSONArray("colorIdentity")):null;
+
+        String[] superTypes = current.has("supertypes")?createTab(current.getJSONArray("supertypes")):null;
+
+        String[] types = createTab(current.getJSONArray("types"));
+
+        String[] subtypes = current.has("subtypes")?createTab(current.getJSONArray("subtypes")):null;
+
+        String rarity = current.getString("rarity");
+        String setName = current.getString("setName");
+
+        String text = current.has("text")?current.getString("text"):"";
+
+        String flavor = current.has("flavor")?current.getString("flavor"):"";
+
+        String power = current.has("power")?current.getString("power"):"";
+
+        String toughness = current.has("toughness")?current.getString("toughness"):"";
+
+        Card card = new Card(name, manaCost, cmc, colors, colorIdentity, superTypes, types, subtypes, rarity, setName, text, flavor, power, toughness);
+
+        adapter.add(card);
+    }
+
+    private String[] createTab(JSONArray jsonArray){
+        try{
+        String[] tab = new String[jsonArray.length()];
+            for (int j=0; j<jsonArray.length(); j++) {
+                tab[j] = (String) jsonArray.get(j);
+            }
+
+            return tab;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

@@ -1,6 +1,8 @@
 package com.example.projetmtg;
 
-public class Card {
+import java.io.Serializable;
+
+public class Card implements Serializable {
 
     private final String name;
     private final String manaCost;

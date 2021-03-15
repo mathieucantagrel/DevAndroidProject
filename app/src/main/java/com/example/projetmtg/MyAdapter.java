@@ -12,11 +12,11 @@ import java.util.Vector;
 
 public class MyAdapter extends BaseAdapter {
 
-    Vector<String> vector;
+    Vector<Card> vector;
     Context context;
 
     public MyAdapter(Context context) {
-        this.vector = new Vector<>();
+        this.vector = new Vector<Card>();
         this.context = context;
     }
 
@@ -27,7 +27,7 @@ public class MyAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return vector.get(position);
     }
 
     @Override
@@ -45,15 +45,23 @@ public class MyAdapter extends BaseAdapter {
 
         TextView textView = (TextView) convertView.findViewById(R.id.textView);
 
-        textView.setText(vector.get(position));
+        textView.setText(vector.get(position).getName());
 
         Log.i("adapter", "here");
 
         return convertView;
     }
 
-    public void add(String name){
-        vector.add(name);
-        Log.i("add", name);
+    public void add(Card card){
+        vector.add(card);
+        Log.i("add", card.getName());
+    }
+
+    public boolean checkDoublon(String checkName){
+        for (Card card : this.vector) {
+            if (card.getName().equals(checkName))
+                return false;
+        }
+        return true;
     }
 }

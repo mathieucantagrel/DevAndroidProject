@@ -2,8 +2,11 @@ package com.example.projetmtg;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class List extends AppCompatActivity {
@@ -25,6 +28,17 @@ public class List extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         AsyncMTGDl();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Card card = (Card) adapter.getItem(position);
+                Log.i("card", card.getName());
+                Intent intent = new Intent(getApplicationContext(), ShowCard.class);
+                intent.putExtra("card", card);
+                startActivity(intent);
+            }
+        });
     }
 
     protected void AsyncMTGDl(){
