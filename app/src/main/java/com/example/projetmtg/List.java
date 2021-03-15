@@ -13,6 +13,8 @@ public class List extends AppCompatActivity {
 
     MyAdapter adapter;
     String querry;
+    String[] colorFilter;
+    String[] colorIdentityFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,8 @@ public class List extends AppCompatActivity {
 
         querry = getIntent().getExtras().getString("querry");
         Log.i("querry", querry);
+        colorFilter = (String[]) getIntent().getExtras().get("colorFilter");
+        colorIdentityFilter = (String[]) getIntent().getExtras().get("colorIdentityFilter");
 
         adapter = new MyAdapter(getBaseContext());
 
@@ -43,6 +47,6 @@ public class List extends AppCompatActivity {
 
     protected void AsyncMTGDl(){
 
-        new AsyncMtgJSONData(adapter).execute("https://api.magicthegathering.io/v1/cards"+querry);
+        new AsyncMtgJSONData(adapter, colorFilter, colorIdentityFilter).execute("https://api.magicthegathering.io/v1/cards"+querry);
     }
 }

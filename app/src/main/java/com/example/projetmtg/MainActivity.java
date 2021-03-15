@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
             CheckBox CG = findViewById(R.id.CG);
 
             String querry = "?";
+            String[] colorFilter = new String[5];
+            String[] colorIdentityFilter = new String[5];
 
             if (!String.valueOf(CardName.getText()).equals("")){
                 querry += "name="+String.valueOf(CardName.getText());
@@ -55,34 +57,53 @@ public class MainActivity extends AppCompatActivity {
                     }
                     querry += "white";
                     isFirst = false;
+                    colorFilter[0]="White";
+                }else{
+                    colorFilter[0]="";
                 }
+
                 if (CU.isChecked()){
                     if (!isFirst){
                         querry+=",";
                     }
                     querry += "blue";
                     isFirst = false;
+                    colorFilter[1]="Blue";
+                }else{
+                    colorFilter[1]="";
                 }
+
                 if (CB.isChecked()){
                     if (!isFirst){
                         querry+=",";
                     }
                     querry += "black";
                     isFirst = false;
+                    colorFilter[2]="Black";
+                }else{
+                    colorFilter[2]="";
                 }
+
                 if (CR.isChecked()){
                     if (!isFirst){
                         querry+=",";
                     }
                     querry += "red";
                     isFirst = false;
+                    colorFilter[3]="Red";
+                }else{
+                    colorFilter[3]="";
                 }
+
+
                 if (CG.isChecked()){
                     if (!isFirst){
                         querry+=",";
                     }
                     querry += "green";
-                    isFirst = false;
+                    colorFilter[4]="Green";
+                }else{
+                    colorFilter[4]="";
                 }
             }
 
@@ -100,34 +121,53 @@ public class MainActivity extends AppCompatActivity {
                     }
                     querry += "W";
                     isFirst = false;
+                    colorIdentityFilter[0] = "W";
+                }else{
+                    colorIdentityFilter[0] = "";
                 }
+
+
                 if (CIU.isChecked()){
                     if (!isFirst){
                         querry+=",";
                     }
                     querry += "U";
                     isFirst = false;
+                    colorIdentityFilter[1] = "U";
+                }else{
+                    colorIdentityFilter[1] = "";
                 }
+
                 if (CIB.isChecked()){
                     if (!isFirst){
                         querry+=",";
                     }
                     querry += "B";
                     isFirst = false;
+                    colorIdentityFilter[2] = "B";
+                }else{
+                    colorIdentityFilter[2] = "";
                 }
+
                 if (CIR.isChecked()){
                     if (!isFirst){
                         querry+=",";
                     }
                     querry += "R";
                     isFirst = false;
+                    colorIdentityFilter[3] = "R";
+                }else{
+                    colorIdentityFilter[3] = "";
                 }
+
                 if (CIG.isChecked()){
                     if (!isFirst){
                         querry+=",";
                     }
                     querry += "G";
-                    isFirst = false;
+                    colorIdentityFilter[4] = "G";
+                }else{
+                    colorIdentityFilter[4] = "";
                 }
             }
 
@@ -135,6 +175,8 @@ public class MainActivity extends AppCompatActivity {
 
             Intent activity = new Intent(getApplicationContext(), List.class);
             activity.putExtra("querry", querry);
+            activity.putExtra("colorFilter", colorFilter);
+            activity.putExtra("colorIdentityFilter", colorIdentityFilter);
 
             startActivity(activity);
 

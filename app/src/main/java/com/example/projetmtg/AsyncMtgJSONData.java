@@ -18,9 +18,13 @@ import java.net.URL;
 public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
 
     MyAdapter adapter;
+    String[] colorFilter;
+    String[] colorIdentityFilter;
 
-    public AsyncMtgJSONData(MyAdapter adapter) {
+    public AsyncMtgJSONData(MyAdapter adapter, String[] colorFilter, String[] colorIdentityFilter) {
         this.adapter = adapter;
+        this.colorFilter = colorFilter;
+        this.colorIdentityFilter = colorIdentityFilter;
     }
 
     @Override
@@ -93,8 +97,16 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
         int cmc = current.getInt("cmc");
 
         String[] colors = current.has("colors")?createTab(current.getJSONArray("colors")):null;
+        if (colors!=null){
+            if (!CheckFilter(colorFilter, colors))
+                return;
+        }
 
         String[] colorIdentity = current.has("colorIdentity")?createTab(current.getJSONArray("colorIdentity")):null;
+        if (colorIdentity!=null){
+            if (!CheckFilter(colorIdentityFilter, colorIdentity))
+                return;
+        }
 
         String[] superTypes = current.has("supertypes")?createTab(current.getJSONArray("supertypes")):null;
 
@@ -131,5 +143,34 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
         }
 
         return null;
+    }
+
+    private boolean CheckFilter(String[] filter, String[] colors){
+
+        if (filter[0]==null)
+            return true;
+
+        boolean check;
+
+        for (String colorToCheck : colors) {
+            check = false;
+
+            for (String color : filter) {
+
+                if (color.equals(""))
+                    continue;
+
+                if (colorToCheck.equals(color)){
+                    check=true;
+                    break;
+                }
+            }
+
+            if (!check){
+                return false;
+            }
+        }
+
+        return true;
     }
 }
