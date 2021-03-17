@@ -42,8 +42,6 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
             } finally {
                 urlConnection.disconnect();
             }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -125,7 +123,9 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
 
         String toughness = current.has("toughness")?current.getString("toughness"):"";
 
-        Card card = new Card(name, manaCost, cmc, colors, colorIdentity, superTypes, types, subtypes, rarity, setName, text, flavor, power, toughness);
+        String imageURL = current.has("imageUrl")?safeURL(current.getString("imageUrl")):"";
+
+        Card card = new Card(name, manaCost, cmc, colors, colorIdentity, superTypes, types, subtypes, rarity, setName, text, flavor, power, toughness, imageURL);
 
         adapter.add(card);
     }
@@ -172,5 +172,11 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
         }
 
         return true;
+    }
+
+    public String safeURL(String str) {
+        StringBuilder stringBuilder = new StringBuilder(str);
+        stringBuilder.insert(4, 's');
+        return stringBuilder.toString();
     }
 }

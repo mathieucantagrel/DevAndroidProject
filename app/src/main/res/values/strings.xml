@@ -30,4 +30,11 @@
     <string name="Rarity">TextView</string>
     <string name="PowerToughness">TextView</string>
     <string name="textview">TextView</string>
+
+
+    <string name="title_activity_show_card_info">ShowCardInfo</string>
+    <string name="tab_text_1">Info</string>
+    <string name="tab_text_2">image</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="card_image">card image</string>
 </resources>

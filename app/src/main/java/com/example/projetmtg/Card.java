@@ -18,8 +18,9 @@ public class Card implements Serializable {
     private final String flavor;
     private final String power;
     private final String toughness;
+    private final String imageURL;
 
-    public Card(String name, String manaCost, int cmc, String[] colors, String[] colorIdentity, String[] superTypes, String[] types, String[] subtypes, String rarity, String setName, String text, String flavor, String power, String toughness) {
+    public Card(String name, String manaCost, int cmc, String[] colors, String[] colorIdentity, String[] superTypes, String[] types, String[] subtypes, String rarity, String setName, String text, String flavor, String power, String toughness, String imageURL) {
         this.name = name;
         this.manaCost = manaCost;
         this.cmc = cmc;
@@ -34,6 +35,7 @@ public class Card implements Serializable {
         this.flavor = flavor;
         this.power = power;
         this.toughness = toughness;
+        this.imageURL = imageURL;
     }
 
     public String getName() {
@@ -90,5 +92,9 @@ public class Card implements Serializable {
 
     public String getToughness() {
         return toughness;
+    }
+
+    public String getImageURL() {
+        return imageURL;
     }
 }

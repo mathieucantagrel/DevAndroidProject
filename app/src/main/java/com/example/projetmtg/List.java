@@ -38,7 +38,7 @@ public class List extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Card card = (Card) adapter.getItem(position);
                 Log.i("card", card.getName());
-                Intent intent = new Intent(getApplicationContext(), ShowCard.class);
+                Intent intent = new Intent(getApplicationContext(), ShowCardInfo.class);
                 intent.putExtra("card", card);
                 startActivity(intent);
             }
