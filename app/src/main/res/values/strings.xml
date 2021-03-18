@@ -35,6 +35,11 @@
     <string name="title_activity_show_card_info">ShowCardInfo</string>
     <string name="tab_text_1">Info</string>
     <string name="tab_text_2">image</string>
-    <string name="tab_text_3">Tab 3</string>
+    <string name="tab_text_3">rulings</string>
     <string name="card_image">card image</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Legalities">legal in : \n</string>
+    <string name="illegalities">Non legal in all other formats</string>
+    <string name="rullings">Special rulings</string>
 </resources>

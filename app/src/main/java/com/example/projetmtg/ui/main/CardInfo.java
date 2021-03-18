@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.projetmtg.Card;
 import com.example.projetmtg.R;
@@ -85,6 +88,15 @@ public class CardInfo extends Fragment {
 
         TextView powerAndToughness = rootView.findViewById(R.id.PowerToughness);
         powerAndToughness.setText(MixPowerToughness(card.getPower(), card.getToughness()));
+
+        Switch favorite = (Switch) rootView.findViewById(R.id.switchFavorite);
+        favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.i("switch", String.valueOf(isChecked));
+            }
+        });
+
 
         return rootView;
     }

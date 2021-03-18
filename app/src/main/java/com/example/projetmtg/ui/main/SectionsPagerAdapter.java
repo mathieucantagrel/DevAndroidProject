@@ -42,7 +42,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return CardImage.newInstance(card);
             case 2:
-                return PlaceholderFragment.newInstance(1);
+                return rulesAndLegalities.newInstance(card);
         }
 
         return fragment;

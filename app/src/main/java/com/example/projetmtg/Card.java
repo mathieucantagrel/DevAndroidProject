@@ -19,8 +19,12 @@ public class Card implements Serializable {
     private final String power;
     private final String toughness;
     private final String imageURL;
+    private final String[] legalities;
+    private final Rule[] rules;
+    private final String id;
+    private Boolean isFavorite;
 
-    public Card(String name, String manaCost, int cmc, String[] colors, String[] colorIdentity, String[] superTypes, String[] types, String[] subtypes, String rarity, String setName, String text, String flavor, String power, String toughness, String imageURL) {
+    public Card(String name, String manaCost, int cmc, String[] colors, String[] colorIdentity, String[] superTypes, String[] types, String[] subtypes, String rarity, String setName, String text, String flavor, String power, String toughness, String imageURL, String[] legalities, Rule[] rules, String id, Boolean isFavorite) {
         this.name = name;
         this.manaCost = manaCost;
         this.cmc = cmc;
@@ -36,6 +40,10 @@ public class Card implements Serializable {
         this.power = power;
         this.toughness = toughness;
         this.imageURL = imageURL;
+        this.legalities = legalities;
+        this.rules = rules;
+        this.id = id;
+        this.isFavorite = isFavorite;
     }
 
     public String getName() {
@@ -96,5 +104,25 @@ public class Card implements Serializable {
 
     public String getImageURL() {
         return imageURL;
+    }
+
+    public String[] getLegalities() {
+        return legalities;
+    }
+
+    public Rule[] getRules() {
+        return rules;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public Boolean getFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(Boolean favorite) {
+        isFavorite = favorite;
     }
 }

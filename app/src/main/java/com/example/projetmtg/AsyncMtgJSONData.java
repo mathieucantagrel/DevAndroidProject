@@ -12,7 +12,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
@@ -125,7 +124,15 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
 
         String imageURL = current.has("imageUrl")?safeURL(current.getString("imageUrl")):"";
 
-        Card card = new Card(name, manaCost, cmc, colors, colorIdentity, superTypes, types, subtypes, rarity, setName, text, flavor, power, toughness, imageURL);
+        String[] legalities = current.has("legalities")?createLegalitiesTab(current.getJSONArray("legalities")):null;
+
+        Rule[] rules = current.has("rulings")? createRulesTab(current.getJSONArray("rulings")):null;
+
+        String id = current.getString("id");
+
+        Boolean isFavorite = false;
+
+        Card card = new Card(name, manaCost, cmc, colors, colorIdentity, superTypes, types, subtypes, rarity, setName, text, flavor, power, toughness, imageURL, legalities, rules, id, isFavorite);
 
         adapter.add(card);
     }
@@ -174,9 +181,31 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
         return true;
     }
 
-    public String safeURL(String str) {
+    private String safeURL(String str) {
         StringBuilder stringBuilder = new StringBuilder(str);
         stringBuilder.insert(4, 's');
         return stringBuilder.toString();
+    }
+
+    private Rule[] createRulesTab(JSONArray jsonArray) throws JSONException {
+        Rule[] tab = new Rule[jsonArray.length()];
+
+        for (int i=0; i<jsonArray.length(); i++){
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            tab[i] = new Rule(jsonObject.getString("date"), jsonObject.getString("text"));
+        }
+
+        return tab;
+    }
+
+    private String[] createLegalitiesTab(JSONArray jsonArray) throws JSONException {
+        String[] tab = new String[jsonArray.length()];
+
+        for (int i=0; i<jsonArray.length(); i++){
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            tab[i] = jsonObject.getString("format");
+        }
+
+        return tab;
     }
 }
