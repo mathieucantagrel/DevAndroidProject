@@ -27,7 +27,7 @@ public class FavCardsDml {
         ContentValues values = new ContentValues();
         values.put(FavCards.favEntry.COLUMN_NAME_FAVCARD, card);
 
-        long newRowId = db.insert(FavCards.favEntry.COLUMN_NAME_FAVCARD, null, values);
+        long newRowId = db.insert(FavCards.favEntry.TABLE_NAME, null, values);
     }
 
     public ArrayList<String> getAllFavCards(){
@@ -58,7 +58,7 @@ public class FavCardsDml {
         String selection = FavCards.favEntry.COLUMN_NAME_FAVCARD + " LIKE ?";
 
         int deletedRows = db.delete(FavCards.favEntry.TABLE_NAME, selection, filter);
-        Log.i("update db", "Deleted: "+deletedRows);
+        Log.i("update db", "Deleted: " + deletedRows);
     }
 
     public void deleteAllTableContent(){

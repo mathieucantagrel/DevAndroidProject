@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
                     colorIdentityFilter[4] = "";
                 }
             }
-
+            
             Log.i("querry", querry);
 
             Intent activity = new Intent(getApplicationContext(), List.class);
@@ -179,7 +179,11 @@ public class MainActivity extends AppCompatActivity {
             activity.putExtra("colorIdentityFilter", colorIdentityFilter);
 
             startActivity(activity);
+        });
 
+        findViewById(R.id.goFavorite).setOnClickListener(v->{
+            Intent activity = new Intent(getApplicationContext(), ListFavorite.class);
+            startActivity(activity);
         });
     }
 }

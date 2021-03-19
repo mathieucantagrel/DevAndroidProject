@@ -14,7 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projetmtg.Card;
+import com.example.projetmtg.FavCardsDml;
 import com.example.projetmtg.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -90,13 +93,23 @@ public class CardInfo extends Fragment {
         powerAndToughness.setText(MixPowerToughness(card.getPower(), card.getToughness()));
 
         Switch favorite = (Switch) rootView.findViewById(R.id.switchFavorite);
+        favorite.setChecked(isFavorite(card.getId()));
         favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.i("switch", String.valueOf(isChecked));
+                FavCardsDml favCardsDml = new FavCardsDml(getContext());
+                if (isChecked){
+                    favCardsDml.addLine(card.getId());
+                }else{
+                    favCardsDml.deleteFilteredTableContent(card.getId());
+                }
+
+                ArrayList<String> cards = favCardsDml.getAllFavCards();
+                for (String fav : cards) {
+                    Log.i("favCards", fav);
+                }
             }
         });
-
 
         return rootView;
     }
@@ -145,5 +158,16 @@ public class CardInfo extends Fragment {
 
     private String MixPowerToughness(String power, String toughness){
         return (power.equals("")&&toughness.equals(""))?"":power+"/"+toughness;
+    }
+
+    private Boolean isFavorite(String id){
+        FavCardsDml favCardsDml = new FavCardsDml(getContext());
+        ArrayList<String> cards = favCardsDml.getAllFavCards();
+        for (String fav : cards) {
+            if (id.equals(fav)){
+                return true;
+            }
+        }
+        return false;
     }
 }

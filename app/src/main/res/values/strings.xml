@@ -42,4 +42,5 @@
     <string name="Legalities">legal in : \n</string>
     <string name="illegalities">Non legal in all other formats</string>
     <string name="rullings">Special rulings</string>
+    <string name="goFavorite">see favorites</string>
 </resources>

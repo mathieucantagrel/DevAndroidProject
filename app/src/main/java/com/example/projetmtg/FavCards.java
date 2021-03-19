@@ -13,7 +13,7 @@ public class FavCards {
         public static final String SQL_CREATE_ENTRIES =
                 "CREATE TABLE " + favEntry.TABLE_NAME + " ("+
                         favEntry._ID + "INTEGER PRIMARY KEY," +
-                        favEntry.COLUMN_NAME_FAVCARD + " TEXT";
+                        favEntry.COLUMN_NAME_FAVCARD + " TEXT)";
 
         public static final String SQL_DELETE_ENTRIES =
                 "DROP TABLE IF EXISTS " + favEntry.TABLE_NAME;

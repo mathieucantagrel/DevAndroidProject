@@ -38,6 +38,8 @@ public class MyAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        Log.i("adapter vet view", vector.get(position).getName());
+
         if (convertView == null){
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.text_layout, parent, false);

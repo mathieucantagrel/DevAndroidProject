@@ -1,5 +1,7 @@
 package com.example.projetmtg;
 
+import android.app.Application;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -13,17 +15,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
 
     MyAdapter adapter;
     String[] colorFilter;
     String[] colorIdentityFilter;
+    ArrayList<String> favorites;
 
-    public AsyncMtgJSONData(MyAdapter adapter, String[] colorFilter, String[] colorIdentityFilter) {
+    public AsyncMtgJSONData(MyAdapter adapter, String[] colorFilter, String[] colorIdentityFilter, Context context) {
         this.adapter = adapter;
         this.colorFilter = colorFilter;
         this.colorIdentityFilter = colorIdentityFilter;
+        FavCardsDml favCardsDml = new FavCardsDml(context);
+        favorites = favCardsDml.getAllFavCards();
     }
 
     @Override
@@ -65,6 +71,7 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
 
             Log.i("postURL", "notified");
 
+
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -85,6 +92,9 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
     }
 
     private void addCard(JSONObject current) throws JSONException {
+
+
+
         String name = current.getString("name");
 
         if (!adapter.checkDoublon(name))
@@ -95,14 +105,18 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
 
         String[] colors = current.has("colors")?createTab(current.getJSONArray("colors")):null;
         if (colors!=null){
-            if (!CheckFilter(colorFilter, colors))
+            if (!CheckFilter(colorFilter, colors)) {
+                Log.i("add card", "color");
                 return;
+            }
         }
 
         String[] colorIdentity = current.has("colorIdentity")?createTab(current.getJSONArray("colorIdentity")):null;
         if (colorIdentity!=null){
-            if (!CheckFilter(colorIdentityFilter, colorIdentity))
+            if (!CheckFilter(colorIdentityFilter, colorIdentity)) {
+                Log.i("add card", "color identity");
                 return;
+            }
         }
 
         String[] superTypes = current.has("supertypes")?createTab(current.getJSONArray("supertypes")):null;
@@ -130,9 +144,7 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
 
         String id = current.getString("id");
 
-        Boolean isFavorite = false;
-
-        Card card = new Card(name, manaCost, cmc, colors, colorIdentity, superTypes, types, subtypes, rarity, setName, text, flavor, power, toughness, imageURL, legalities, rules, id, isFavorite);
+        Card card = new Card(name, manaCost, cmc, colors, colorIdentity, superTypes, types, subtypes, rarity, setName, text, flavor, power, toughness, imageURL, legalities, rules, id);
 
         adapter.add(card);
     }
@@ -164,8 +176,9 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
 
             for (String color : filter) {
 
-                if (color.equals(""))
+                if (color.equals("")) {
                     continue;
+                }
 
                 if (colorToCheck.equals(color)){
                     check=true;

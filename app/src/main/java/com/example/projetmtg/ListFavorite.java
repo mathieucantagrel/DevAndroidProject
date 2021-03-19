@@ -9,29 +9,27 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-public class List extends AppCompatActivity {
+public class ListFavorite extends AppCompatActivity {
 
     MyAdapter adapter;
-    String querry;
-    String[] colorFilter;
-    String[] colorIdentityFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        querry = getIntent().getExtras().getString("querry");
-        Log.i("querry", querry);
-        colorFilter = (String[]) getIntent().getExtras().get("colorFilter");
-        colorIdentityFilter = (String[]) getIntent().getExtras().get("colorIdentityFilter");
-
         adapter = new MyAdapter(getBaseContext());
 
         ListView listView = (ListView) findViewById(R.id.List);
         listView.setAdapter(adapter);
 
-        AsyncMTGDl();
+        String querry = "https://api.magicthegathering.io/v1/cards?id=";
+
+        FavCardsDml favCardsDml = new FavCardsDml(getApplicationContext());
+
+        for (String id : favCardsDml.getAllFavCards()) {
+            AsyncMTGDL(querry+id);
+        }
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -45,8 +43,9 @@ public class List extends AppCompatActivity {
         });
     }
 
-    protected void AsyncMTGDl(){
+    protected void AsyncMTGDL(String querry){
+        String[] filters = new String[5];
 
-        new AsyncMtgJSONData(adapter, colorFilter, colorIdentityFilter, getApplicationContext()).execute("https://api.magicthegathering.io/v1/cards"+querry);
+        new AsyncMtgJSONData(adapter, filters, filters, getApplicationContext()).execute(querry);
     }
 }
