@@ -20,7 +20,6 @@ import com.example.projetmtg.Rule;
  */
 public class rulesAndLegalities extends Fragment {
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_CARD = "param_card";
 
     private Card card;
@@ -52,8 +51,7 @@ public class rulesAndLegalities extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_rules_and_legalities, container, false);
 

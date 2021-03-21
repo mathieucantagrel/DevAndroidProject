@@ -24,8 +24,6 @@ import java.util.concurrent.ExecutionException;
  */
 public class CardImage extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_CARD = "param_card";
 
     private Card card;
@@ -51,17 +49,21 @@ public class CardImage extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //set the arguments for the fragment
         if (getArguments() != null) {
             card = (Card) getArguments().getSerializable(ARG_CARD);
         }
     }
 
+    //set up the view to display the image
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_card_image, container, false);
 
+//        download asynchronously the image to display it
         AsyncTask<String, Void, Bitmap> as = new AsyncBitmapDownloader().execute(card.getImageURL());
         ImageView im = rootView.findViewById(R.id.CardImageView);
         try {

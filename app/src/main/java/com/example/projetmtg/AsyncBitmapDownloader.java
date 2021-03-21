@@ -18,8 +18,6 @@ public class AsyncBitmapDownloader extends AsyncTask<String, Void, Bitmap> {
     protected Bitmap doInBackground(String... strings) {
         URL url = null;
 
-
-
         try {
             url = new URL(strings[0]);
 

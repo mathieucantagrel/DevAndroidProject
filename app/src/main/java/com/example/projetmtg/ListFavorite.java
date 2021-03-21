@@ -25,12 +25,14 @@ public class ListFavorite extends AppCompatActivity {
 
         String querry = "https://api.magicthegathering.io/v1/cards?id=";
 
-        FavCardsDml favCardsDml = new FavCardsDml(getApplicationContext());
+        FavCardsDml favCardsDml = new FavCardsDml(getApplicationContext()); // access to the database
 
+        //call the api for each item in the database
         for (String id : favCardsDml.getAllFavCards()) {
             AsyncMTGDL(querry+id);
         }
 
+//        set up the onclick to display the information about the card
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -45,7 +47,6 @@ public class ListFavorite extends AppCompatActivity {
 
     protected void AsyncMTGDL(String querry){
         String[] filters = new String[5];
-
         new AsyncMtgJSONData(adapter, filters, filters, getApplicationContext()).execute(querry);
     }
 }

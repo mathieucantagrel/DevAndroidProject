@@ -92,6 +92,7 @@ public class CardInfo extends Fragment {
         TextView powerAndToughness = rootView.findViewById(R.id.PowerToughness);
         powerAndToughness.setText(MixPowerToughness(card.getPower(), card.getToughness()));
 
+//        set up the switch to set as favorite or not
         Switch favorite = (Switch) rootView.findViewById(R.id.switchFavorite);
         favorite.setChecked(isFavorite(card.getId()));
         favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -99,21 +100,18 @@ public class CardInfo extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 FavCardsDml favCardsDml = new FavCardsDml(getContext());
                 if (isChecked){
-                    favCardsDml.addLine(card.getId());
+                    favCardsDml.addLine(card.getId()); // add to the database
                 }else{
-                    favCardsDml.deleteFilteredTableContent(card.getId());
+                    favCardsDml.deleteFilteredTableContent(card.getId()); // remove form the database
                 }
 
-                ArrayList<String> cards = favCardsDml.getAllFavCards();
-                for (String fav : cards) {
-                    Log.i("favCards", fav);
-                }
             }
         });
 
         return rootView;
     }
 
+    //preparing the string to display the types
     private String MixTypes(String[] superTypes, String[] types, String[] subtypes){
         StringBuilder mix = new StringBuilder();
 
@@ -141,12 +139,12 @@ public class CardInfo extends Fragment {
         return mix.toString();
     }
 
+//    preparing the string to display the color identity
     private String MixColorIdentity(String[] colorIdentity){
         StringBuilder mix = new StringBuilder("color identity: ");
 
         if (colorIdentity!=null) {
-            for (String color :
-                    colorIdentity) {
+            for (String color : colorIdentity) {
                 mix.append(color).append(" ");
             }
         }else{
@@ -156,10 +154,12 @@ public class CardInfo extends Fragment {
         return mix.toString();
     }
 
+//    preparing the string to display the power and toughness
     private String MixPowerToughness(String power, String toughness){
         return (power.equals("")&&toughness.equals(""))?"":power+"/"+toughness;
     }
 
+//    set up the switch as true or false if the card is a favorite or not
     private Boolean isFavorite(String id){
         FavCardsDml favCardsDml = new FavCardsDml(getContext());
         ArrayList<String> cards = favCardsDml.getAllFavCards();

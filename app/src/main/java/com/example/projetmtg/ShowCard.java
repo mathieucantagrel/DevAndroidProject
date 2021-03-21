@@ -41,6 +41,7 @@ public class ShowCard extends AppCompatActivity {
 
     }
 
+//    preparing the types to display
     private String MixTypes(String[] superTypes, String[] types, String[] subtypes){
         StringBuilder mix = new StringBuilder();
 
@@ -68,6 +69,7 @@ public class ShowCard extends AppCompatActivity {
         return mix.toString();
     }
 
+//    preparing the color identity to be display
     private String MixColorIdentity(String[] colorIdentity){
         StringBuilder mix = new StringBuilder("color identity: ");
 
@@ -83,6 +85,7 @@ public class ShowCard extends AppCompatActivity {
         return mix.toString();
     }
 
+//    preparing the color power and toughness to be display
     private String MixPowerToughness(String power, String toughness){
         return (power.equals("")&&toughness.equals(""))?"":power+"/"+toughness;
     }

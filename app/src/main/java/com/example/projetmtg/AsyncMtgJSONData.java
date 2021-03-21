@@ -62,21 +62,20 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
             JSONArray jsonArray = jsonObject.getJSONArray("cards");
 
             Log.i("postURL", String.valueOf(jsonArray.length()));
-            
+
+//            parsing the json to create a card
             for (int i=0; i<jsonArray.length(); i++){
                 addCard(jsonArray.getJSONObject(i));
             }
 
-            adapter.notifyDataSetChanged();
-
-            Log.i("postURL", "notified");
-
+            adapter.notifyDataSetChanged(); //refesh the adapter to change the layout
 
         }catch (JSONException e){
             e.printStackTrace();
         }
     }
 
+//    read the InputStream and convert it into a string
     private String readStream(InputStream is) {
         try {
             ByteArrayOutputStream bo = new ByteArrayOutputStream();
@@ -91,12 +90,12 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
         }
     }
 
+//    parsing the json and create a card object and add it to the vector of the adaptor
     private void addCard(JSONObject current) throws JSONException {
-
-
 
         String name = current.getString("name");
 
+//        we do not want any doublon in the vector
         if (!adapter.checkDoublon(name))
             return;
 
@@ -105,6 +104,7 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
 
         String[] colors = current.has("colors")?createTab(current.getJSONArray("colors")):null;
         if (colors!=null){
+//            check the filter in order to correspond to what the user want in term of color in the card
             if (!CheckFilter(colorFilter, colors)) {
                 Log.i("add card", "color");
                 return;
@@ -113,6 +113,7 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
 
         String[] colorIdentity = current.has("colorIdentity")?createTab(current.getJSONArray("colorIdentity")):null;
         if (colorIdentity!=null){
+//            check the filter in order to correspond to what the user want in term of color identity in the card
             if (!CheckFilter(colorIdentityFilter, colorIdentity)) {
                 Log.i("add card", "color identity");
                 return;
@@ -149,6 +150,7 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
         adapter.add(card);
     }
 
+//    convert a jsonarray to an array of string
     private String[] createTab(JSONArray jsonArray){
         try{
         String[] tab = new String[jsonArray.length()];
@@ -164,6 +166,7 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
         return null;
     }
 
+//    check the filter
     private boolean CheckFilter(String[] filter, String[] colors){
 
         if (filter[0]==null)
@@ -194,12 +197,14 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
         return true;
     }
 
+//    convert the http to https
     private String safeURL(String str) {
         StringBuilder stringBuilder = new StringBuilder(str);
         stringBuilder.insert(4, 's');
         return stringBuilder.toString();
     }
 
+//    convert a jsonarray to an array of rule
     private Rule[] createRulesTab(JSONArray jsonArray) throws JSONException {
         Rule[] tab = new Rule[jsonArray.length()];
 
@@ -211,6 +216,7 @@ public class AsyncMtgJSONData extends AsyncTask<String, Void, JSONObject> {
         return tab;
     }
 
+//    convert a jsonarray to an array of string
     private String[] createLegalitiesTab(JSONArray jsonArray) throws JSONException {
         String[] tab = new String[jsonArray.length()];
 

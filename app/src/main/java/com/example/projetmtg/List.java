@@ -21,18 +21,20 @@ public class List extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        querry = getIntent().getExtras().getString("querry");
+        querry = getIntent().getExtras().getString("querry"); // getting the qurry to send to the api
         Log.i("querry", querry);
-        colorFilter = (String[]) getIntent().getExtras().get("colorFilter");
-        colorIdentityFilter = (String[]) getIntent().getExtras().get("colorIdentityFilter");
+        colorFilter = (String[]) getIntent().getExtras().get("colorFilter"); //getting the color filter
+        colorIdentityFilter = (String[]) getIntent().getExtras().get("colorIdentityFilter"); //getting the color identity
 
         adapter = new MyAdapter(getBaseContext());
 
         ListView listView = (ListView) findViewById(R.id.List);
         listView.setAdapter(adapter);
 
-        AsyncMTGDl();
+        AsyncMTGDl(); // seting up the layout with the result of the api
 
+
+//        set up the onclick to display the information about the card
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -46,7 +48,6 @@ public class List extends AppCompatActivity {
     }
 
     protected void AsyncMTGDl(){
-
         new AsyncMtgJSONData(adapter, colorFilter, colorIdentityFilter, getApplicationContext()).execute("https://api.magicthegathering.io/v1/cards"+querry);
     }
 }

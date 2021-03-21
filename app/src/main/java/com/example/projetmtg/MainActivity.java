@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
             Log.i("querry", querry);
 
+//            prepare the querry and the filter according to the check boxes
             if (CW.isChecked()||CU.isChecked()||CB.isChecked()||CR.isChecked()||CG.isChecked()){
                 querry +="&colors=";
 
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
             Log.i("querry", querry);
 
+//            prepare the querry and the filter according to the check boxes
             if (CIW.isChecked()||CIU.isChecked()||CIB.isChecked()||CIR.isChecked()||CIG.isChecked()){
 
                 querry += "&colorIdentity=";
@@ -173,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
             
             Log.i("querry", querry);
 
+//            preparing the intent and setting up all extras
             Intent activity = new Intent(getApplicationContext(), List.class);
             activity.putExtra("querry", querry);
             activity.putExtra("colorFilter", colorFilter);
