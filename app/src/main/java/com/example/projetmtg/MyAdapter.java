@@ -49,8 +49,6 @@ public class MyAdapter extends BaseAdapter {
 
         textView.setText(vector.get(position).getName());
 
-        Log.i("adapter", "here");
-
         return convertView;
     }
 

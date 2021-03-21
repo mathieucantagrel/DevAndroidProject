@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">projetMTG</string>
-    <string name="CardName">Name</string>
-    <string name="CardType">Type</string>
-    <string name="CardColor">Color</string>
-    <string name="CardColorIdentity">Color Identity</string>
+    <string name="CardName">Name (optional)</string>
+    <string name="CardType">Type (optional)</string>
+    <string name="CardColor">Color (optional)</string>
+    <string name="CardColorIdentity">Color Identity (optional)</string>
 
     <!--    CHECKBOX COLOR IDENTITY     -->
 
